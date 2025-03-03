@@ -230,13 +230,202 @@ CMD ["echo", "Hello, Docker!"]
 ---
 
 ## 26. Explain the workflow of how a Docker Container is created?
-
-1. Write a Dockerfile
-2. Build image: `docker build -t myapp .`
-3. Run container: `docker run myapp`
+1. **Pull Image**: Download the required image from Docker Hub using `docker pull <image_name>`.
+2. **Create & Start a Container**: Use `docker run -d <image_name>` to create and start a container.
+3. **Container Execution**: The container runs the application inside the environment defined by the image.
+4. **View Running Containers**: Check running containers with `docker ps`.
+5. **Manage Containers**: Start, stop, restart, or remove containers using `docker start/stop/rm <container_id>`.
+6. **Persistent Storage**: Use volumes (`-v /host/path:/container/path`) to persist data.
+7. **Networking**: Expose ports (`-p 8080:80`) to allow external access.
 
 ---
 
-*(More questions and answers can be added as needed.)*
+## 27. How do you manage multiple Containers?
+Multiple containers are managed using:
+- **Docker Compose**: Define multi-container applications using a `docker-compose.yml` file.
+- **Docker Swarm**: A native clustering tool for container orchestration.
+- **Kubernetes**: A powerful container orchestration system.
+- **Networking & Volume Management**: Use Docker networks (`docker network create my_network`) and volumes (`docker volume create my_volume`).
+- **Resource Limits**: Control CPU & memory using `--memory` and `--cpus` flags.
 
-please 
+---
+
+## 28. What is CI and CD in CICD?
+- **CI (Continuous Integration)**: Automates code merging, testing, and builds when developers push changes.
+- **CD (Continuous Deployment/Delivery)**: Ensures that new code is automatically deployed to production (Deployment) or made available for manual release (Delivery).
+
+---
+
+## 29. What CICD tools have you used in the past?
+- Jenkins
+- GitHub Actions
+- GitLab CI/CD
+- CircleCI
+- Travis CI
+- AWS CodePipeline
+- Azure DevOps
+
+---
+
+## 30. How will you create a CICD pipeline to update the website or app on every commit to a particular branch?
+1. **Set up a Repository**: Use GitHub/GitLab/Bitbucket.
+2. **Create a Jenkins Pipeline**:
+   - Clone the repo on every push (`git checkout <branch>`).
+   - Run unit tests (`mvn test`, `npm test`).
+   - Build the application (`mvn package`, `docker build`).
+   - Deploy the updated app to the server using `scp`, `kubectl apply`, or `ansible`.
+   - Notify developers using Slack, email, or webhooks.
+
+---
+
+## 31. Explain staging, production, and testing environment.
+- **Testing**: Internal environment for developers to test code.
+- **Staging**: A pre-production environment to simulate real-world use cases.
+- **Production**: The live environment accessed by end-users.
+
+---
+
+## 32. What is a Blue-Green Deployment?
+A **Blue-Green Deployment** minimizes downtime by maintaining two environments:
+- **Blue (Active)**: Running production version.
+- **Green (New Release)**: New version deployed.
+- Switch traffic to Green once tested.
+
+---
+
+## 33. Explain Canary Deployment?
+A **Canary Deployment** gradually rolls out a new version to a small percentage of users before full release.
+- If successful, expand rollout.
+- If issues occur, rollback to stable release.
+
+---
+
+## 34. What is the biggest issue you faced, and how did you resolve it?
+Example:
+- **Issue**: Application downtime due to database migration failure.
+- **Solution**:  
+  - Implemented database versioning (Flyway, Liquibase).
+  - Used Blue-Green deployment to test changes.
+  - Created automated rollback scripts.
+
+---
+
+## 35. How do you scale your application?
+- **Horizontal Scaling**: Add more instances (`docker-compose scale`, Kubernetes replicas).
+- **Vertical Scaling**: Increase CPU/RAM allocation.
+- **Load Balancing**: Use Nginx, HAProxy, AWS ALB.
+- **Auto-scaling**: AWS Auto Scaling, Kubernetes HPA.
+
+---
+
+## 36. How do you rollback if something fails?
+- **Git Revert**: Revert to the previous commit.
+- **Docker Rollback**: Use `docker service update --rollback`.
+- **Kubernetes Rollback**: `kubectl rollout undo deployment`.
+- **Jenkins Rollback**: Restore artifacts from backup.
+
+---
+
+## 37. How do you automate deployments?
+Using CI/CD pipelines with tools like:
+- **Jenkins, GitHub Actions, GitLab CI/CD**
+- **Ansible, Terraform** for Infrastructure as Code
+- **Docker & Kubernetes** for containerized apps
+
+---
+
+## 38. Which tools have you used for automating deployments?
+- **CI/CD**: Jenkins, GitHub Actions, GitLab CI
+- **Configuration Management**: Ansible, Puppet
+- **Container Orchestration**: Kubernetes, Docker Swarm
+- **Infrastructure as Code**: Terraform, CloudFormation
+
+---
+
+## 39. Have you written any Jenkins Pipeline from scratch?
+Yes, using **Declarative** and **Scripted Pipelines**. Example:
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build') { steps { sh 'mvn package' } }
+        stage('Test') { steps { sh 'mvn test' } }
+        stage('Deploy') { steps { sh 'scp target/app.war user@server:/deploy/' } }
+    }
+}
+```
+
+---
+
+## 40. Mention some plugins you have used in Jenkins?
+- Git Plugin
+- Pipeline Plugin
+- Kubernetes Plugin
+- Docker Plugin
+- Slack Notification Plugin
+- SonarQube Plugin
+
+---
+
+## 41. What is CI/CD?
+CI/CD automates software integration, testing, and deployment.
+- **CI**: Frequent code commits with automated testing.
+- **CD**: Automated or manual deployment to production.
+
+---
+
+## 42. How can you create backup and copy files in Jenkins?
+- Backup using `cp -r $JENKINS_HOME /backup/jenkins/`.
+- Use Jenkins ThinBackup plugin.
+
+---
+
+## 43. Assume you have 2 Jenkins jobs. The first job completed successfully, but the 2nd job failed. What will you do?
+- **Check logs** for error details.
+- **Re-run the job** after fixing issues.
+- **Trigger rollback** if needed.
+
+---
+
+## 44. Process to integrate Git with Jenkins?
+1. Install Git Plugin in Jenkins.
+2. Configure GitHub credentials.
+3. Use Git repository URL in Jenkins job configuration.
+
+---
+
+## 45. What is DSL in Jenkins?
+**DSL (Domain Specific Language)** in Jenkins (Job DSL Plugin) allows creating Jenkins jobs programmatically using Groovy scripts.
+
+---
+
+## 46. Why use Jenkins instead of Bamboo?
+- Jenkins is **open-source**, Bamboo is **paid**.
+- Jenkins has a **larger plugin ecosystem**.
+- Bamboo has **better Bitbucket integration**.
+
+---
+
+## 47. How to deploy a custom build of a code plugin to Jenkins?
+- Place the `.hpi` or `.jpi` file in `$JENKINS_HOME/plugins`.
+- Restart Jenkins.
+
+---
+
+## 48. What is the use of Jenkins home directory?
+- Stores job configurations, logs, plugins, and user data.
+- Default location: `/var/lib/jenkins/`.
+
+---
+
+## 49. How do you take a backup of Jenkins Jobs?
+- Copy `JENKINS_HOME/jobs/`.
+- Use **ThinBackup plugin**.
+
+---
+
+## 50. How to configure Jenkins nodes/agents with Jenkins master?
+- Add a new node in **Manage Jenkins > Nodes**.
+- Launch agent via SSH or JNLP.
+
+
