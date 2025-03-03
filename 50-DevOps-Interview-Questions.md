@@ -428,4 +428,162 @@ CI/CD automates software integration, testing, and deployment.
 - Add a new node in **Manage Jenkins > Nodes**.
 - Launch agent via SSH or JNLP.
 
+---
+
+### 51. What’s the difference between Recreate and Rolling Update strategies?
+**Recreate Strategy:**
+- Terminates all existing pods before creating new ones.
+- Causes downtime as all old pods are deleted simultaneously.
+- Used when new deployments require a complete restart.
+
+**Rolling Update Strategy:**
+- Gradually replaces old pods with new ones to ensure zero downtime.
+- Uses `maxUnavailable` and `maxSurge` parameters to control rollout.
+- Preferred for production environments where uptime is critical.
+
+### 52. Why is Kubernetes widely used in modern organizations?
+- Automates container deployment, scaling, and operations.
+- Provides high availability and fault tolerance.
+- Works well with microservices architectures.
+- Enables multi-cloud and hybrid cloud environments.
+- Supports declarative infrastructure via YAML manifests.
+
+### 53. What are Cluster IP, Headless Services, and when should you use them?
+**Cluster IP:**
+- Default service type.
+- Exposes the service within the Kubernetes cluster.
+- Used for internal communication between pods.
+
+**Headless Service:**
+- Defined with `clusterIP: None`.
+- Does not allocate a virtual IP.
+- Used when clients need direct access to individual pod IPs (e.g., StatefulSets, databases).
+
+### 54. What are stateless and stateful in YAML files?
+**Stateless Applications:**
+- Do not persist data between sessions.
+- Can be freely restarted and scaled.
+- Example: Web servers, API services.
+
+**Stateful Applications:**
+- Maintain state across restarts.
+- Require persistent storage (e.g., databases, messaging queues).
+- Deployed using StatefulSets in Kubernetes.
+
+### 55. What are the different Kubernetes services, and how do they work?
+- **ClusterIP:** Internal access only.
+- **NodePort:** Exposes service on a static port on each node.
+- **LoadBalancer:** Uses a cloud provider's load balancer to expose services externally.
+- **Headless Service:** No ClusterIP, directly resolves to pod IPs.
+
+### 56. What is a Terraform state file, and why is it important?
+- Stores the current state of infrastructure.
+- Tracks resources managed by Terraform.
+- Helps in detecting changes and preventing configuration drift.
+
+### 57. What resources have you created using Terraform?
+- AWS EC2 instances, VPCs, subnets, security groups.
+- RDS instances, S3 buckets, IAM roles.
+- Kubernetes clusters (EKS, GKE, AKS).
+- Load balancers, Route 53 DNS records.
+
+### 58. If an RDS instance is created via Terraform but later modified manually, how do you reconcile the changes?
+- Run `terraform plan` to detect drift.
+- Use `terraform apply` to override manual changes.
+- If needed, import the changes using `terraform import`.
+
+### 59. What is a Terraform local name, and how is it used?
+- Defined using `locals` block in Terraform.
+- Used to store reusable expressions.
+- Example:
+  ```hcl
+  locals {
+    env = "dev"
+  }
+  output "environment" {
+    value = local.env
+  }
+  ```
+
+### 60. What are Docker Volumes, and why use them instead of EC2 storage?
+- Persist data across container restarts.
+- Decoupled from the container lifecycle.
+- Can be shared among multiple containers.
+- More flexible than EC2 instance storage.
+
+### 61. Is Docker volume data persistent?
+- Yes, data in Docker volumes persists even if containers are stopped or removed.
+
+### 62. How do you implement a CI/CD pipeline? Can you write a Jenkins pipeline?
+- Steps:
+  1. Code is pushed to GitHub.
+  2. Jenkins detects changes and triggers a build.
+  3. Builds artifacts and runs tests.
+  4. Deploys to a Kubernetes cluster.
+
+- **Jenkinsfile Example:**
+  ```groovy
+  pipeline {
+    agent any
+    stages {
+      stage('Build') {
+        steps {
+          sh 'mvn clean package'
+        }
+      }
+      stage('Test') {
+        steps {
+          sh 'mvn test'
+        }
+      }
+      stage('Deploy') {
+        steps {
+          sh 'kubectl apply -f deployment.yaml'
+        }
+      }
+    }
+  }
+  ```
+
+### 63. Why use ArgoCD for Kubernetes deployments? How does it work end to end?
+- **Why ArgoCD?**
+  - GitOps approach for Kubernetes deployments.
+  - Ensures cluster state matches Git repository.
+  - Provides a UI and audit trail for deployments.
+
+- **How it works:**
+  1. Define Kubernetes manifests in a Git repository.
+  2. ArgoCD continuously monitors the repo.
+  3. If drift is detected, ArgoCD syncs changes.
+  4. Ensures Kubernetes deployments are always in the desired state.
+
+### 64. How do you establish communication between frontend and backend services?
+- Use Kubernetes services (ClusterIP, LoadBalancer, Ingress).
+- Example: Backend as a service exposed via ClusterIP.
+- Frontend connects via service name (`http://backend-service:8080`).
+
+### 65. What are the key services used in your project?
+- Kubernetes (EKS/GKE/AKS), ArgoCD, Prometheus, Grafana.
+- Terraform for infrastructure as code.
+- CI/CD tools like Jenkins/GitHub Actions.
+- Database services (RDS, PostgreSQL, MongoDB).
+
+### 66. When do you use headless services vs. cluster services?
+- **Headless Services:** When direct pod-to-pod communication is needed (e.g., databases, stateful applications).
+- **ClusterIP Services:** When internal service discovery is sufficient.
+
+### 67. What’s the best way to deploy and manage microservices in a Kubernetes environment?
+- Use **Helm charts** for packaging microservices.
+- Implement **ArgoCD/GitOps** for deployment automation.
+- Set up **Horizontal Pod Autoscaler** for scalability.
+- Use **service mesh (Istio/Linkerd)** for networking.
+- Implement **monitoring (Prometheus/Grafana)**.
+
+### 68. How does your organization handle cloud-native deployments efficiently?
+- Uses **Infrastructure as Code (Terraform, Helm)**.
+- Implements **CI/CD pipelines (Jenkins, GitHub Actions, ArgoCD)**.
+- Adopts **observability tools (Prometheus, Loki, ELK)**.
+- Implements **auto-scaling and cost optimization strategies**.
+
+
 
