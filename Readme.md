@@ -1,4 +1,4 @@
-# DevOps, SRE and Platform Engineer Interview Questions with Detailed Answers
+# DevOps and SRE Interview Questions with Detailed Answers
 
 ## Overview
 This repository contains a comprehensive list of DevOps, SRE and Platform Engineer interview questions along with detailed answers. The goal of this document is to serve as a reference for anyone preparing for DevOps interviews, working on CI/CD pipelines, K8s or learning about automation and deployment best practices.
