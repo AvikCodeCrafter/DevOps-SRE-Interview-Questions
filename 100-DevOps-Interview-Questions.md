@@ -1,4 +1,4 @@
-# 50 DevOps Interview Questions and Answers
+# 100 DevOps Interview Questions and Answers
 
 ## 1. What is DevOps Lifecycle?
 
