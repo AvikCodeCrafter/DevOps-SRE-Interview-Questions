@@ -207,3 +207,4 @@ certbot certonly --standalone -d "$DOMAIN" --email "$EMAIL" --agree-tos --non-in
 ```
 ```
 
+These scripts are ready to use, but make sure to test them in your environment and modify paths, server names, and configurations as needed. Let me know if you need explanations or improvements! 🚀
