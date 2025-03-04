@@ -1,5 +1,8 @@
+### Shell Scripts Interview Questions and Answers for Devops/SRE
+
+
 ```md
-# Shell Scripts for System Administration
+
 
 ## 1. Monitor Network Connectivity and Log if Unreachable
 ```bash
@@ -204,7 +207,6 @@ EMAIL="admin@yourdomain.com"
 
 apt install certbot -y
 certbot certonly --standalone -d "$DOMAIN" --email "$EMAIL" --agree-tos --non-interactive
-```
 ```
 
 These scripts are ready to use, but make sure to test them in your environment and modify paths, server names, and configurations as needed. Let me know if you need explanations or improvements! 🚀
