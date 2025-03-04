@@ -1,9 +1,5 @@
 # Shell Scripts Interview Questions and Answers for Devops/SRE
 
-
-```md
-
-
 ## 1. Monitor Network Connectivity and Log if Unreachable
 ```bash
 #!/bin/bash
